@@ -2,8 +2,6 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import Webcam from 'react-webcam';
-import 'tailwindcss/tailwind.css';
 import {Button} from "@/components/ui/button";
 
 const HarryPotterExercise = () => {

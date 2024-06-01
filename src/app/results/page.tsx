@@ -1,7 +1,7 @@
 "use client"
 
 import {useRouter, useSearchParams} from 'next/navigation';
-import 'tailwindcss/tailwind.css';
+
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 

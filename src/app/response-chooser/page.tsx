@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
-import 'tailwindcss/tailwind.css';
+
 import Image from 'next/image';
 
 const ImagePicker = () => {

@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Webcam from 'react-webcam';
-import 'tailwindcss/tailwind.css';
+
 import {Button} from "@/components/ui/button";
 
 const HarryPotterExercise = () => {
@@ -21,7 +21,6 @@ const HarryPotterExercise = () => {
     const uploadSolution = () => {
         router.push('/response-chooser');
     }
-
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">

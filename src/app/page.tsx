@@ -3,7 +3,7 @@
 import {useState, useCallback, useRef} from 'react';
 import { useRouter } from 'next/navigation';
 import Webcam from 'react-webcam';
-import 'tailwindcss/tailwind.css';
+
 
 const WebcamCapture = () => {
     const webcamRef = useRef(null);
