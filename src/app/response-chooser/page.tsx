@@ -18,8 +18,8 @@ const ImagePicker = () => {
                 <Image
                     src="/image1.png" // replace with your image path
                     alt="Image 1"
-                    width={150}
-                    height={150}
+                    width={300}
+                    height={500}
                     className="w-full cursor-pointer"
                     onClick={() => chooseImage('image1')}
                 />
@@ -34,8 +34,8 @@ const ImagePicker = () => {
                 <Image
                     src="/image3.png" // replace with your image path
                     alt="Image 3"
-                    width={150}
-                    height={150}
+                    width={300}
+                    height={500}
                     className="w-full cursor-pointer"
                     onClick={() => chooseImage('image3')}
                 />

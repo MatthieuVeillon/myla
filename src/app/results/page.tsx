@@ -24,7 +24,7 @@ const ResultPage = () => {
         //     break;
         case 'image3':
             imageSrc = '/result-image3.png'; // replace with your image path
-            feedback = 'Feedback for image 3...'; // replace with your feedback
+            feedback = 'Ton travail sur la simplification des fractions est excellent ! Tu as utilisé les bonnes méthodes pour simplifier chaque fraction correctement.'; // replace with your feedback
             break;
         default:
             imageSrc = '/path/to/default-image.jpg'; // replace with your image path
@@ -42,7 +42,7 @@ const ResultPage = () => {
             {/*    height={300}*/}
             {/*    className="w-full sm:w-1/2"*/}
             {/*/>*/}
-            <p className="text-center mt-4">
+            <p className="text-center mt-4 text-2xl">
                 {feedback}
             </p>
 
