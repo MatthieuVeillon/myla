@@ -16,7 +16,7 @@ const ResultPage = () => {
     switch (response) {
         case 'image1':
             imageSrc = '/result-image1.png'; // replace with your image path
-            feedback = 'Feedback for image 1...'; // replace with your feedback
+            feedback = 'Vous avez fait une erreur de lecture sur l\'énoncé du point 3. Refait le point 3. Tu t\'es trompé dans le point 4. Redécompose la fraction.'; // replace with your feedback
             break;
         // case 'image2':
         //     imageSrc = '/result-image2.png'; // replace with your image path
