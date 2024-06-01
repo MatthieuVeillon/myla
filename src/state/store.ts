@@ -1,10 +1,12 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import {Base64} from "@/types";
+import {Base64, CreateExerciseFromBackToFrontPayload} from "@/types";
 
 interface StoreState {
     courseImages: Base64[]
-    setCourseImages: (image: Base64) => void
+    setCourseImages: (image: Base64) => void,
+    exercise: CreateExerciseFromBackToFrontPayload,
+    setExercise: (newExercise: CreateExerciseFromBackToFrontPayload) => void,
 }
 
 // const useGlobalStore = create<StoreState>()(
@@ -26,6 +28,12 @@ export const useGlobalStore = create<StoreState>()(
             (set) => ({
                 courseImages: [],
                 setCourseImages: (newImage) => set((state) => ({ courseImages: [...state.courseImages, newImage] })),
+                exercise: {
+                    title: '',
+                    questions: [],
+                    courseTextFromAI: '',
+                },
+                setExercise: (newExercise) => set((state) => ({ exercise: newExercise })),
             }),
             {
                 name: 'global-storage',
