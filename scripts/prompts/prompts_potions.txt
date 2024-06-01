@@ -1,0 +1,107 @@
+
+Une question en mathématiques de type collège est posée à un modèle de langage, avec la une photo de la réponse qu'un élève a faite à cette question.
+Je veux que l'IA retourne un JSON qui précise:
+- la solution du problème.
+- l'analyse de la réponse, qui relève les points non maitrisés de l'élève et qui les reexplique.
+- une note sur 20 de la réponse de l'élève.
+- une suggestion de problème qui ressemble au problème posé, mais qui est plus difficile si le problème avait bien été traité, ou plus facile si le problème a mal été traité.
+
+Par exemple:
+
+"""
+Le professeur Rogue a décidé de corser l'exercice pour tester vos compétences en mathématiques et en magie. Veuillez compléter les problèmes suivants en utilisant vos connaissances des fractions et des proportions magiques.
+
+Le professeur Rogue vous demande de préparer une potion complexe en combinant plusieurs autres potions. Voici les recettes et les quantités nécessaires :
+
+    Question 1:
+        Jus de Mandragore : 2332​ de litre
+        Sang de Salamandre : 5885​ de litre
+
+    Question 2 :
+        Poudre de Corne de Licorne : 3553​ de litre
+        Larmes de Phoenix : 710107​ de litre
+
+    Question 3 :
+        Extrait de Mandragore : 1441​ de litre
+        Essence de Dragon : 920209​ de litre
+
+Question 4: Calculer la quantité totale de liquide nécessaire pour chaque potion en simplifiant la somme des fractions (utilisez un dénominateur commun). Ensuite, calculez la quantité totale de liquide pour toutes les potions combinées.
+
+{
+  "corrected_solution": {
+    "Question 1": {
+      "calculation": "2/3 + 5/8",
+      "steps": [
+        "Find common denominator: 24",
+        "Convert fractions: 2/3 = 16/24, 5/8 = 15/24",
+        "Add fractions: 16/24 + 15/24 = 31/24",
+        "Simplified result: 31/24 ≈ 1.2917 litres"
+      ],
+      "result": "1.2917 litres"
+    },
+    "Question 2": {
+      "calculation": "3/5 + 7/10",
+      "steps": [
+        "Find common denominator: 10",
+        "Convert fractions: 3/5 = 6/10",
+        "Add fractions: 6/10 + 7/10 = 13/10",
+        "Simplified result: 13/10 = 1.3 litres"
+      ],
+      "result": "1.3 litres"
+    },
+    "Question 3": {
+      "calculation": "1/4 + 9/20",
+      "steps": [
+        "Find common denominator: 20",
+        "Convert fractions: 1/4 = 5/20",
+        "Add fractions: 5/20 + 9/20 = 14/20",
+        "Simplified result: 14/20 = 7/10 = 0.7 litres"
+      ],
+      "result": "0.7 litres"
+    },
+    "Question 4": {
+      "calculation": "1.2917 + 1.3 + 0.7",
+      "steps": [
+        "Add results: 1.2917 + 1.3 + 0.7 = 3.2917 litres"
+      ],
+      "result": "3.2917 litres"
+    }
+  },
+  "analysis": {
+    "Question 1": {
+      "provided_calculation": "2/3 + 5/8 = 31/24",
+      "provided_result": "31/24 litres",
+      "correct": true,
+      "points": 2,
+      "comments": "Correct use of common denominator and addition. Result correctly simplified."
+    },
+    "Question 2": {
+      "provided_calculation": "3/5 + 7/10 = 65/50",
+      "provided_result": "13/10 litres",
+      "correct": true,
+      "points": 2,
+      "comments": "Correct use of common denominator and addition. Result correctly simplified."
+    },
+    "Question 3": {
+      "provided_calculation": "1/4 + 9/20 = 14/20",
+      "provided_result": "7/10 litres",
+      "correct": true,
+      "points": 2,
+      "comments": "Correct use of common denominator and addition. Result correctly simplified."
+    },
+    "Question 4": {
+      "provided_calculation": "31/24 + 13/10 + 7/10",
+      "provided_result": "Incorrect total",
+      "correct": false,
+      "points": 0,
+      "comments": "Incorrect addition of final results. Ensure to convert and add properly."
+    },
+    "overall_feedback": {
+      "total_points": 6,
+      "max_points": 8,
+      "score": 15,
+      "comments": "Good understanding of fraction addition and simplification. Care needed in final total addition."
+    }
+  }
+}
+"""

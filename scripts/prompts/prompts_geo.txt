@@ -1,0 +1,90 @@
+
+Une question en mathématiques de type collège est posée à un modèle de langage, avec la une photo de la réponse qu'un élève a faite à cette question.
+Je veux que l'IA retourne un JSON qui précise:
+- la solution du problème.
+- l'analyse de la réponse, qui relève les points non maitrisés de l'élève et qui les reexplique.
+- une note sur 20 de la réponse de l'élève.
+- une suggestion de problème qui ressemble au problème posé, mais qui est plus difficile si le problème avait bien été traité, ou plus facile si le problème a mal été traité.
+
+Par exemple:
+
+"""
+Problème :
+
+Calculer les périmètres des figures géométriques suivantes :
+
+    Un rectangle de 5 cm de longueur et 3 cm de largeur.
+    Un triangle équilatéral avec un côté de 4 cm.
+    Un cercle avec un rayon de 2 cm.
+
+Réponse de l'élève (photo fournie) :
+
+    Rectangle : 2×(5+3)=162×(5+3)=16 cm
+    Triangle : 3×4=123×4=12 cm
+    Cercle : 2×π×2=12.562×π×2=12.56 cm
+
+JSON retourné :
+
+json
+
+{
+  "corrected_solution": {
+    "Question 1": {
+      "calculation": "2 * (5 + 3)",
+      "steps": [
+        "Add length and width: 5 + 3 = 8",
+        "Multiply by 2: 2 * 8 = 16"
+      ],
+      "result": "16 cm"
+    },
+    "Question 2": {
+      "calculation": "3 * 4",
+      "steps": [
+        "Multiply the side length by 3: 3 * 4 = 12"
+      ],
+      "result": "12 cm"
+    },
+    "Question 3": {
+      "calculation": "2 * π * 2",
+      "steps": [
+        "Multiply the radius by 2 and π: 2 * 3.14 * 2 = 12.56"
+      ],
+      "result": "12.56 cm"
+    }
+  },
+  "analysis": {
+    "Question 1": {
+      "provided_calculation": "2 * (5 + 3)",
+      "provided_result": "16 cm",
+      "correct": true,
+      "points": 2,
+      "comments": "Correct calculation of the perimeter of the rectangle."
+    },
+    "Question 2": {
+      "provided_calculation": "3 * 4",
+      "provided_result": "12 cm",
+      "correct": true,
+      "points": 2,
+      "comments": "Correct calculation of the perimeter of the triangle."
+    },
+    "Question 3": {
+      "provided_calculation": "2 * π * 2",
+      "provided_result": "12.56 cm",
+      "correct": true,
+      "points": 2,
+      "comments": "Correct calculation of the perimeter of the circle."
+    },
+    "overall_feedback": {
+      "total_points": 6,
+      "max_points": 6,
+      "score": 20,
+      "comments": "Excellent travail. Toutes les réponses sont correctes et bien expliquées."
+    }
+  },
+  "suggestion": {
+    "next_problem": "Calculer les périmètres et les aires des figures géométriques suivantes :\n1. Un rectangle de 7 cm de longueur et 4 cm de largeur.\n2. Un triangle équilatéral avec un côté de 5 cm.\n3. Un cercle avec un rayon de 3 cm."
+  }
+}
+
+Dans cet exemple, l'élève a correctement répondu à toutes les questions et a obtenu une note parfaite. Le prochain problème proposé est un peu plus difficile, en incluant à la fois les périmètres et les aires des figures géométriques.
+"""

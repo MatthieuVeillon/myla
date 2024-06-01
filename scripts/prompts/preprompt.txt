@@ -1,0 +1,7 @@
+Une question en mathématiques de type collège est posée à un modèle de langage, avec la une photo de la réponse qu'un élève a faite à cette question.
+Je veux que l'IA retourne un JSON qui précise:
+- la solution du problème.
+- l'analyse de la réponse, qui relève les points non maitrisés de l'élève et qui les reexplique.
+- une note sur 20 de la réponse de l'élève.
+- une suggestion de problème qui ressemble au problème posé, mais qui est plus difficile si le problème avait bien été traité, ou plus facile si le problème a mal été traité.
+Je veux que mon prompt ait un ou 2 exemples de JSon à retourner (one shot learning)
