@@ -17,6 +17,10 @@ const WebcamCapture = () => {
         router.push('/universe-chooser');
     }, [webcamRef, setImgSrc, router]);
 
+    const videoConstraints = {
+        facingMode: { exact: "environment" }
+    };
+
     console.log("imgSrc",imgSrc)
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -25,6 +29,7 @@ const WebcamCapture = () => {
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 className="w-full max-w-md"
+                videoConstraints={videoConstraints}
             />
             <button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
                 Capture photo
