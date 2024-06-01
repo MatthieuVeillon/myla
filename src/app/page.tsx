@@ -12,19 +12,36 @@ const WebcamCapture = () => {
     const setCourseImages = useGlobalStore((state) => state.setCourseImages);
     const router = useRouter();
 
-    const capture = useCallback(async () => {
+     const capture = useCallback(() => {
+        // Capture the screenshot from the webcam
         // @ts-ignore
         const imageSrc = webcamRef?.current?.getScreenshot();
-        setCourseImages(imageSrc);
+        if (!imageSrc) return;
 
-        const requestBody = {
-            courseImages: imageSrc,
-            theme: 'Harry Potter', //todo replace theme with the actual theme
+        // Create an off-screen canvas for resizing the image
+        const img = new Image();
+        img.src = imageSrc;
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const scaleFactor = 0.5;
+
+            canvas.width = img.width * scaleFactor;
+            canvas.height = img.height * scaleFactor;
+            // @ts-ignore
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            const resizedImageSrc = canvas.toDataURL('image/jpeg');
+            setCourseImages(resizedImageSrc);
+
+            const requestBody = {
+                courseImages: resizedImageSrc,
+                theme: 'Harry Potter', // TODO: replace theme with the actual theme
+            };
+
+            router.push('/universe-chooser');
         };
-
-
-        router.push('/universe-chooser');
-    }, [webcamRef, setImgSrc, router]);
+    }, [webcamRef, setCourseImages, router]);
 
     const videoConstraints = {
         facingMode: { exact: "environment" }
