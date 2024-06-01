@@ -34,7 +34,7 @@ const HarryPotterExercise = () => {
             </p>
 
             <Image
-                src="/exercice-marvel.png" // replace with your image path
+                src="/harry-potter-image.png" // replace with your image path
                 alt="Harry Potter"
                 width={300}
                 height={150}
@@ -48,7 +48,7 @@ const HarryPotterExercise = () => {
 
 
             <Image
-                src="/harry-potter-image.png" // replace with your image path
+                src="/exercice-partie1.png" // replace with your image path
                 alt="Harry Potter"
                 width={70}
                 height={150}
