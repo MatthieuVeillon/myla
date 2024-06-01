@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import {Button} from "@/components/ui/button";
+import MathsComponent from "@/components/ui/mathsComponent";
 
 const HarryPotterExercise = () => {
     const webcamRef = useRef(null);
@@ -28,7 +29,9 @@ const HarryPotterExercise = () => {
             </h1>
 
             <p className="text-justify mt-4">
-                {DESCRIPTION}
+                <MathsComponent>
+                    {DESCRIPTION}
+                </MathsComponent>
             </p>
             <p className="text-center mt-4 font-bold">
                 Final question to solve...
@@ -59,5 +62,5 @@ export default HarryPotterExercise;
 
 const DESCRIPTION = "Imagine que tu es à Poudlard, l'école de sorcellerie de Harry Potter. "  +
     "Dans ta main, tu as un sac de Bertie Bott's Every Flavour Beans, les fameux bonbons aux mille et une saveurs. " +
-    "Dans ce sac, il y a 10 bonbons : 3 sont au goût de citrouille, 4 au goût de pomme et 3 au goût de chaussettes sales.  " +
+    "Dans ce sac, il y a 10 bonbons : 3 sont au goût de citrouille,( 10^{-2} ) frac{1}{2} 4 au goût de pomme et 3 au goût de chaussettes sales.  ( 5 \\times 10^6 )" +
     "Si tu fermes les yeux et que tu prends un bonbon au hasard, quelle est la probabilité que tu prennes un bonbon au goût de citrouille ? Et quelle est la probabilité que tu prennes un bonbon au goût de chaussettes sales ?  Rappelle-toi, la probabilité se calcule en divisant le nombre de résultats favorables par le nombre total de résultats. Dans ce cas, le nombre total de résultats est le nombre total de bonbons. Bonne chance !"
