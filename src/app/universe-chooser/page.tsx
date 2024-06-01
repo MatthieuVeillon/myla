@@ -4,20 +4,21 @@ import {useRouter} from 'next/navigation';
 import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 import {useGlobalStore} from "@/state/store";
+import axios from "axios";
+import {CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
 const UniversePicker = () => {
     const router = useRouter();
     const courseImages = useGlobalStore((state) => state.courseImages);
 
-    console.log("courseImages", courseImages)
-    const chooseUniverse = (universe: string) => {
+    const chooseUniverse = async (universe: string) => {
         const requestBody = {
             courseImages,
             theme: 'Harry Potter', //todo replace theme with the actual theme
         };
         // Send the image to the backend
         try {
-            // const response = await axios.post<CreateExerciseFromBackToFrontPayload,CreateExerciseFromBackToFrontPayload >('api', requestBody);
-            // console.log(response);
+            const response = await axios.post<CreateExerciseFromFrontToBackPayload,CreateExerciseFromBackToFrontPayload >('api/create-exercise', requestBody);
+            console.log(response);
         } catch (error) {
             console.error(error);
         }

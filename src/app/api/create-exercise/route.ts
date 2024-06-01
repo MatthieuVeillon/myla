@@ -7,6 +7,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+
 const encodeImage = async (imagePath: string): Promise<string> => {
     const imageBuffer = await fs.readFile(imagePath);
     return imageBuffer.toString('base64');

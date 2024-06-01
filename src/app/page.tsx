@@ -17,12 +17,6 @@ const WebcamCapture = () => {
         const imageSrc = webcamRef?.current?.getScreenshot();
         setCourseImages(imageSrc);
 
-        const requestBody = {
-            courseImages: imageSrc,
-            theme: 'Harry Potter', //todo replace theme with the actual theme
-        };
-
-
         router.push('/universe-chooser');
     }, [webcamRef, setImgSrc, router]);
 
@@ -47,3 +41,5 @@ const WebcamCapture = () => {
 };
 
 export default WebcamCapture;
+
+
