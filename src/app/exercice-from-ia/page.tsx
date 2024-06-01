@@ -12,6 +12,7 @@ const HarryPotterExercise = () => {
     const router = useRouter();
 
     const capture = useCallback(() => {
+        // @ts-ignore
         const imageSrc = webcamRef?.current?.getScreenshot();
         setImgSrc(imageSrc);
         router.push('/response-chooser');

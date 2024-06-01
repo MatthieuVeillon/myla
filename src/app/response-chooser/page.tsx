@@ -7,7 +7,7 @@ import Image from 'next/image';
 const ImagePicker = () => {
     const router = useRouter();
 
-    const chooseImage = (imageName) => {
+    const chooseImage = (imageName: string) => {
         router.push(`/results?response=${imageName}`);
     };
 
