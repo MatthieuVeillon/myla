@@ -25,7 +25,7 @@ const processImages = async (courseImages: string[]): Promise<string[]> => {
                     content: JSON.stringify([
                         {
                             type: 'text',
-                            text: "Analyser et interpréter visuellement les concepts abordés dans le cours tout en gardant à l'esprit qu'il s'agit de source d'inspiration pour la création d'exercice.",
+                            text: "Analyse et interpréte les concepts abordés dans le cours tout en gardant à l'esprit qu'il s'agit de source d'inspiration pour la création d'un exercice.",
                         },
                         {
                             type: 'image_url',
