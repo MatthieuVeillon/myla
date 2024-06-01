@@ -1,5 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { promises as fs } from 'fs';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -8,16 +6,16 @@ const openai = new OpenAI({
 });
 
 
-const encodeImage = async (imagePath: string): Promise<string> => {
-    const imageBuffer = await fs.readFile(imagePath);
-    return imageBuffer.toString('base64');
-};
+// const encodeImage = async (imagePath: string): Promise<string> => {
+//     const imageBuffer = await fs.readFile(imagePath);
+//     return imageBuffer.toString('base64');
+// };
 
-const processImages = async (imagePaths: string[]): Promise<string[]> => {
+const processImages = async (courseImages: string[]): Promise<string[]> => {
     const imageTexts: string[] = [];
 
-    for (const imagePath of imagePaths) {
-        const base64Image = await encodeImage(imagePath);
+    for (const courseImage of courseImages) {
+        // const base64Image = await encodeImage(imagePath);
 
         const completion = await openai.chat.completions.create({
             model: 'gpt-4o',
@@ -32,7 +30,7 @@ const processImages = async (imagePaths: string[]): Promise<string[]> => {
                         {
                             type: 'image_url',
                             image_url: {
-                                url: `data:image/jpeg;base64,${base64Image}`,
+                                url: `${courseImage}`,
                             },
                         },
                     ]),
@@ -47,7 +45,7 @@ const processImages = async (imagePaths: string[]): Promise<string[]> => {
     return imageTexts;
 };
 
-const generateExercise = async (imageTexts: string[], universePrompt: string): Promise<string> => {
+const generateExercise = async (courseImages: string[], universePrompt: string): Promise<string> => {
     const completion = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
@@ -66,7 +64,7 @@ const generateExercise = async (imageTexts: string[], universePrompt: string): P
                         type: 'text',
                         text: 'Images:',
                     },
-                    ...imageTexts.map((imageText) => ({
+                    ...courseImages.map((imageText) => ({
                         type: 'text',
                         text: imageText,
                     })),
@@ -78,18 +76,18 @@ const generateExercise = async (imageTexts: string[], universePrompt: string): P
     return completion.choices[0].message?.content ?? '';
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST') {
-        const { imagePaths, universePrompt } = req.body;
+export async function POST(req: Request) {
+    const body = await req.json()
+    const { courseImages, theme } = body
+    try {
+        const imageTexts = await processImages(courseImages);
+        const exercise = await generateExercise(imageTexts, theme);
 
-        try {
-            const imageTexts = await processImages(imagePaths);
-            const exercise = await generateExercise(imageTexts, universePrompt);
-            res.status(200).json({ exercise });
-        } catch (error) {
-            res.status(500).json({ error: 'Error processing images or generating exercise' });
-        }
-    } else {
-        res.status(405).json({ error: 'Method not allowed' });
+        return Response.json({exercise})
+
+    } catch (error) {
+        return new Response(` Error processing images or generating exercise: ${error}`, {
+            status: 500,
+        })
     }
 }
