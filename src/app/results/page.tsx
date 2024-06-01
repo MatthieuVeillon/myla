@@ -4,6 +4,7 @@ import {useRouter, useSearchParams} from 'next/navigation';
 
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
+import {Suspense} from "react";
 
 const ResultPage = () => {
     const router = useRouter();
@@ -52,4 +53,13 @@ const ResultPage = () => {
     );
 };
 
-export default ResultPage;
+
+export function ResultPageSuspended() {
+    return (
+        // You could have a loading skeleton as the `fallback` too
+        <Suspense>
+            <ResultPage />
+        </Suspense>
+    )
+}
+export default ResultPageSuspended;
