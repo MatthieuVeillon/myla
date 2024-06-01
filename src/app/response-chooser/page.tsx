@@ -1,13 +1,16 @@
 "use client"
 
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 
 import Image from 'next/image';
+import {useGlobalStore} from "@/state/store";
 
 const ImagePicker = () => {
     const router = useRouter();
+    const courseImages = useGlobalStore((state) => state.courseImages);
 
-    const chooseImage = (imageName: string) => {
+    console.log("courseImages", courseImages)
+    const chooseImage = async (imageName: string) => {
         router.push(`/results?response=${imageName}`);
     };
 

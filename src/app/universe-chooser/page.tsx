@@ -3,11 +3,25 @@ import {useRouter} from 'next/navigation';
 
 import Image from 'next/image';
 import {Button} from "@/components/ui/button";
+import {useGlobalStore} from "@/state/store";
 const UniversePicker = () => {
     const router = useRouter();
+    const courseImages = useGlobalStore((state) => state.courseImages);
 
+    console.log("courseImages", courseImages)
     const chooseUniverse = (universe: string) => {
-        // Here you can save the chosen universe to a state or to a database
+        const requestBody = {
+            courseImages,
+            theme: 'Harry Potter', //todo replace theme with the actual theme
+        };
+        // Send the image to the backend
+        try {
+            // const response = await axios.post<CreateExerciseFromBackToFrontPayload,CreateExerciseFromBackToFrontPayload >('api', requestBody);
+            // console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+
         router.push('/exercice-from-ia-' + universe);
     };
 
