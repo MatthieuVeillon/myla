@@ -54,7 +54,7 @@ const ResultPage = () => {
 };
 
 
-export function ResultPageSuspended() {
+const ResultPageSuspended = () => {
     return (
         // You could have a loading skeleton as the `fallback` too
         <Suspense>
