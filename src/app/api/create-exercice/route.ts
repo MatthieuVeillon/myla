@@ -3,8 +3,8 @@ import { promises as fs } from 'fs';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-    organization:'org-67y2ddY7XSDse9uR2e5A7jFj',
-    apiKey:"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"
+    organization: process.env.OPENAI_ORGANIZATION_ID,
+    apiKey: process.env.OPENAI_API_KEY,
 });
 
 const encodeImage = async (imagePath: string): Promise<string> => {
