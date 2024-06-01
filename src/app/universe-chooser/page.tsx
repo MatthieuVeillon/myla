@@ -1,17 +1,21 @@
 "use client"
 import {useRouter} from 'next/navigation';
-
 import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
-import {CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
+import {Base64, CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
 import {useState} from "react";
+
+type Response = {
+    data: CreateExerciseFromBackToFrontPayload
+}
 
 const UniversePicker = () => {
     const router = useRouter();
     const courseImages = useGlobalStore((state) => state.courseImages);
     const [isLoading, setIsLoading] = useState(false);
+    const [exercise, setExercise ] = useState<CreateExerciseFromBackToFrontPayload | null>(null);
 
     console.log("courseImages", courseImages)
     const chooseUniverse = async (universe: string) => {
@@ -22,16 +26,16 @@ const UniversePicker = () => {
         // Send the image to the backend
         try {
             setIsLoading(true)
-            const response = await axios.post<CreateExerciseFromFrontToBackPayload, CreateExerciseFromBackToFrontPayload>('api/create-exercise', requestBody);
-            console.log(response);
+            // const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/create-exercise', requestBody);
+            // console.log(response.data);
+            setExercise(EXERCICE.data)
             setIsLoading(false)
         } catch (error) {
             console.error(error);
         }
-
-        router.push('/exercice-from-ia-' + universe);
+ //       router.push('/exercice-from-ia-' + universe);
     };
-
+    console.log("exercise", exercise)
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1 className="text-2xl font-bold text-center mb-4">
@@ -56,13 +60,37 @@ const UniversePicker = () => {
                         onClick={() => chooseUniverse('marvel')}
                     />
                 </>}
-
-
                 <Button disabled> Ajoute ton propre univers (à venir demain)</Button>
-
             </div>
         </div>
     );
 };
 
 export default UniversePicker;
+
+
+// title: string
+// image?: Base64
+// questions: Question[]
+// courseTextFromAI: string
+
+const EXERCICE: Response = {
+    data:{
+        title: "Harry Potter Probability Exercise",
+        courseTextFromAI: "Harry Potter Probability Exercise",
+        questions: [
+            {
+                title : "Partie 1 : trouver la probabilité de base des cartes rouges",
+                description : "de tirer une carte rouge d'un jeu de cartes standard",
+                image: "rouge",
+                hint : "concentrez-vous sur les cartes rouges",
+            },
+            {
+                title : "Partie 2 : trouver la probabilité de base des cartes noires",
+                description : "de tirer une carte noires d'un jeu de cartes standard",
+                image: "noir",
+                hint : "concentrez-vous sur les cartes noires",
+            },
+        ],
+    }
+}
