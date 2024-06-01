@@ -1,0 +1,25 @@
+Je te fournis un ensemble d'images correspondant à un cours de collège. Ta tâche consiste à analyser ces images et à en extraire les notions essentielles que les élèves doivent assimiler. Voici ce que j'attends de toi :
+
+Identification des notions principales : Pour l'ensemble des images, identifie les notions principales abordées. Décris chacune de ces notions en une phrase claire.
+
+Détail des notions : Pour chaque notion principale, donne une description détaillée qui explique :
+
+La définition de la notion.
+Son importance dans le contexte du cours.
+Des exemples concrets ou des applications pratiques.
+Points clés à retenir : Liste les points clés associés à chaque notion. Ces points clés doivent être formulés de manière à pouvoir être transformés en questions de révision ou d'évaluation.
+
+Organisation des notions : Organise les notions de manière logique et cohérente, en suivant l'ordre de présentation du cours dans les images.
+
+Voici un exemple pour t'aider à comprendre ce que j'attends :
+
+Notion principale : Le cycle de l'eau
+Description détaillée :
+Définition : Le cycle de l'eau décrit le mouvement continu de l'eau sur, au-dessus et sous la surface de la Terre.
+Importance : Comprendre le cycle de l'eau est essentiel pour saisir les processus météorologiques et climatiques.
+Exemples : Evaporation des océans, formation des nuages, précipitations sous forme de pluie ou de neige.
+Points clés :
+Evaporation : transformation de l'eau liquide en vapeur d'eau.
+Condensation : formation de gouttelettes d'eau à partir de la vapeur.
+Précipitation : retour de l'eau à la surface sous forme de pluie, neige, etc.
+Assure-toi que chaque notion soit suffisamment détaillée pour permettre la génération de questions ultérieures. Ne génère pas de question.
