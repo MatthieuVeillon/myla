@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useCallback, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import Webcam from 'react-webcam';
+import {useCallback, useRef, useState} from 'react';
+import {useRouter} from 'next/navigation';
 
 import {Button} from "@/components/ui/button";
 import Image from "next/image";
+import MathsComponent from "@/components/ui/mathsComponent";
 
 const HarryPotterExercise = () => {
     const webcamRef = useRef(null);
@@ -29,9 +29,11 @@ const HarryPotterExercise = () => {
                 Exercice : Les Héros de Harry Potter
             </h1>
 
-            <p className="text-justify mt-4">
-                {"Imagine que les héros de l'univers de Harry Potter ont besoin de toi pour résoudre des problèmes mathématiques afin de sauver le monde magique ! Chaque fraction représente une partie de la puissance magique nécessaire pour vaincre les forces du mal. Aide-les en résolvant ces fractions !"}
-            </p>
+            <div className="text-justify mt-4">
+                <MathsComponent>
+                    {"Imagine que les héros de l'univers de Harry Potter ont besoin de toi pour résoudre des problèmes mathématiques \\[e^{i\\pi} + 1 = 10^{-2} \\times \\frac{1}{2} \\times (5 \\times 10^6) \\] afin de sauver le monde magique ! Chaque fraction représente une partie de la puissance magique nécessaire pour vaincre les forces du mal. Aide-les en résolvant ces fractions !\n"}
+                </MathsComponent>
+            </div>
 
             <Image
                 src="/harry-potter-image.png" // replace with your image path
