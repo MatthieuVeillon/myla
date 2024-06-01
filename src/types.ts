@@ -1,5 +1,5 @@
 
-type Base64 = string
+export type Base64 = string
 
 // CREATE EXERCICE TYPES
 
@@ -17,19 +17,19 @@ type Examples = {
 }
 
 
-type CreateExerciseFromFrontToBackPayload = {
+export type CreateExerciseFromFrontToBackPayload = {
     courseImages: Base64 []
     theme: string,
 }
 
-type CreateExerciseFromBackToFrontPayload = {
+export type CreateExerciseFromBackToFrontPayload = {
     title: string
     image: Base64
     questions: Question[]
     courseTextFromAI: string
 }
 
-type CreateExerciseFromBackToOpenAIPayload = {
+export type CreateExerciseFromBackToOpenAIPayload = {
     context: string
     theme: string
     courseImages: Base64 []
@@ -38,17 +38,17 @@ type CreateExerciseFromBackToOpenAIPayload = {
 }
 
 //todo not sure this is needed
-type CreateExerciseFromOpenAIToBack = {}
+export type CreateExerciseFromOpenAIToBack = {}
 
 
 // CREATE EXERCISE TYPES
 
-type AnalyzeExerciseFromFrontToBackPayload = {
+export type AnalyzeExerciseFromFrontToBackPayload = {
     questions: Question[]
     solutions: Base64[],
 }
 
-type AnalyzeExerciseFromBackToFrontPayload = {
+export type AnalyzeExerciseFromBackToFrontPayload = {
     successRateImage: Base64
     summary: string
     comments: string[]
