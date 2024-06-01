@@ -1,7 +1,7 @@
 "use client"
 
-import {useState, useCallback, useRef} from 'react';
-import { useRouter } from 'next/navigation';
+import {useCallback, useRef, useState} from 'react';
+import {useRouter} from 'next/navigation';
 import Webcam from 'react-webcam';
 import {useGlobalStore} from "@/state/store";
 
@@ -12,13 +12,11 @@ const WebcamCapture = () => {
     const setCourseImages = useGlobalStore((state) => state.setCourseImages);
     const router = useRouter();
 
-     const capture = useCallback(() => {
-        // Capture the screenshot from the webcam
+    const capture = useCallback(() => {
         // @ts-ignore
         const imageSrc = webcamRef?.current?.getScreenshot();
         if (!imageSrc) return;
 
-        // Create an off-screen canvas for resizing the image
         const img = new Image();
         img.src = imageSrc;
         img.onload = () => {
@@ -28,8 +26,10 @@ const WebcamCapture = () => {
 
             canvas.width = img.width * scaleFactor;
             canvas.height = img.height * scaleFactor;
+
             // @ts-ignore
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
 
             const resizedImageSrc = canvas.toDataURL('image/jpeg');
             setCourseImages(resizedImageSrc);
@@ -44,7 +44,7 @@ const WebcamCapture = () => {
     }, [webcamRef, setCourseImages, router]);
 
     const videoConstraints = {
-        facingMode: { exact: "environment" }
+        facingMode: {exact: "environment"}
     };
 
     return (

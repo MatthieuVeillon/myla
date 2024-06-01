@@ -23,7 +23,6 @@ interface StoreState {
 
 export const useGlobalStore = create<StoreState>()(
     devtools(
-        persist(
             (set) => ({
                 courseImages: [],
                 setCourseImages: (newImage) => set((state) => ({ courseImages: [...state.courseImages, newImage] })),
@@ -31,6 +30,5 @@ export const useGlobalStore = create<StoreState>()(
             {
                 name: 'global-storage',
             },
-        ),
     ),
 )
