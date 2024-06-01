@@ -8,8 +8,6 @@ import {useGlobalStore} from "@/state/store";
 const ImagePicker = () => {
     const router = useRouter();
     const courseImages = useGlobalStore((state) => state.courseImages);
-
-    console.log("courseImages", courseImages)
     const chooseImage = async (imageName: string) => {
         router.push(`/results?response=${imageName}`);
     };
