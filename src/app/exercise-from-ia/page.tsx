@@ -13,6 +13,7 @@ import {
 } from "@/types";
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
+import MathsComponent from "@/components/ui/mathsComponent";
 
 type Response = {
     data: AnalyzeExerciseFromBackToFrontPayload
@@ -48,7 +49,6 @@ const ExerciseFromIA = () => {
         facingMode: {exact: "environment"}
     };
 
-
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1 className="text-2xl font-bold text-center mb-4">
@@ -62,7 +62,9 @@ const ExerciseFromIA = () => {
                         {question.title}
                     </h3>
                     <p className="text-justify mt-4">
+                        <MathsComponent>
                         {question.description}
+                            </MathsComponent>
                     </p>
                 </div>
             ))}
