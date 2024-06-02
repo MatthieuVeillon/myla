@@ -12,9 +12,17 @@ const openai = new OpenAI({
 // };
 
 const processImages = async (courseImages: string[]): Promise<string> => {
-    const messagesPrompt: any = {
+    const mappedImages = courseImages.map((image) => {
+        return {
+            type: 'image_url',
+            image_url: {
+                url: image,
+            },
+        }
+    })
+    const messagesPrompt: any = [{
         role: 'user',
-        content: JSON.stringify([
+        content: [
             {
                 type: 'text',
                 text: `Je te fournis un ensemble d'images correspondant à un cours de collège. Ta tâche consiste à analyser ces images et à en extraire les notions essentielles que les élèves doivent assimiler. Voici ce que j'attends de toi :
@@ -44,18 +52,10 @@ const processImages = async (courseImages: string[]): Promise<string> => {
                 Assure-toi que chaque notion soit suffisamment détaillée pour permettre la génération de questions ultérieures. Ne génère pas de question.
                 `,
             },
-        ]),
-    };
+            ...mappedImages
+        ],
+    }]
 
-    for (const courseImage of courseImages) {
-        messagesPrompt.push(
-        {
-            type: 'image_url',
-            image_url: {
-                url: `${courseImage}`,
-            },
-        })
-    }
 
     const completion = await openai.chat.completions.create({
         model: 'gpt-4o',
@@ -71,12 +71,14 @@ const processImages = async (courseImages: string[]): Promise<string> => {
 };
 
 const generateExercise = async (notions: string, universePrompt: string): Promise<string> => {
+
+
     const completion = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
             {
                 role: 'user',
-                content: JSON.stringify([
+                content: [
                     {
                         type: 'text',
                         text: `Je suis un élève au collège et je veux travailler ma leçon. Voici un résumé des notions que je dois assimiler (entre les triples backticks) \`\`\`${notions}
@@ -115,7 +117,7 @@ const generateExercise = async (notions: string, universePrompt: string): Promis
                         Génère de 3 à 5 questions, en répondant uniquement avec le JSON.
                         `
                     }
-                ]),
+                ],
             },
         ],
     });
@@ -128,9 +130,10 @@ const generateExercise = async (notions: string, universePrompt: string): Promis
     return result;
 };
 export const maxDuration = 60;
+
 export async function POST(req: Request) {
     const body = await req.json()
-    const { courseImages, theme } = body
+    const {courseImages, theme} = body
     try {
         const notions = await processImages(courseImages);
         const exercise = await generateExercise(notions, theme);
@@ -143,3 +146,6 @@ export async function POST(req: Request) {
         })
     }
 }
+
+
+" Error processing images or generating exercise: Error: 400 Missing required parameter: 'messages[1].role'."
