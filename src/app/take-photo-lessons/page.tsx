@@ -70,7 +70,7 @@ const MobilePage: React.FC<MobilePageProps> = ({name}) => {
                     {/* Bottom centered content */}
                     <div className="relative flex flex-col justify-center items-center flex-grow">
                         <h3 className="relative flex flex-col justify-center items-center flex-grow "
-                            style={{color: '#4E6F63'}}>ON S'Y MET ?</h3>
+                            style={{color: '#4E6F63'}}>{"ON S'Y MET ?"}</h3>
                         <h1 className="relative flex flex-col justify-center items-center flex-grow text-2xl font-bold"
                             style={{color: '#4E6F63'}}>Prends une photo</h1>
                         <h3 className="relative flex flex-col justify-center items-center flex-grow text-lg"
