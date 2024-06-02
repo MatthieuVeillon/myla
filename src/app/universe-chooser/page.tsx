@@ -4,7 +4,7 @@ import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
-import {Base64, CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
+import { CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
 import {useState} from "react";
 
 type Response = {
@@ -18,7 +18,6 @@ const UniversePicker = () => {
     const setExercise = useGlobalStore((state) => state.setExercise);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log("courseImages", courseImages)
     const chooseUniverse = async (universe: string) => {
         const requestBody = {
             courseImages,
@@ -179,16 +178,6 @@ const courseTextFromAI = "1.⁠ ⁠Expérience aléatoire et issues possibles\n"
     "Points clés :\n" +
     "•⁠  ⁠La probabilité d'une issue combinée est le produit des probabilités des issues individuelles.\n" +
     "•⁠  ⁠Utilisation d'arbres pour représenter visuellement les combinaisons d'issues."
-
-
-
-const EXERCICE: Response = {
-    data: {
-        title: "Exercice sur les probaliités en handball",
-        courseTextFromAI: courseTextFromAI,
-        questions: questionsV2,
-    }
-}
 
 
 function extractAndParseJSON(input: string) {
