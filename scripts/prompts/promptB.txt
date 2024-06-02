@@ -74,7 +74,7 @@ Le ton doit être encourageant, bienveillant, et didactique. Utilise le tutoieme
   "solution": ["x = 2"],
   "solution-student": ["x = 5"],
   "comments": ["Tu as fait une erreur en isolant x. Rappelle-toi, il faut d'abord soustraire 3 de chaque côté de l'équation, puis diviser par 2."],
-  "grade": 10,
+  "grade": 5,
   "summary": "Revois la méthode pour isoler l'inconnue dans une équation. Tu progresses bien, continue tes efforts !"
 }
 ```
@@ -93,7 +93,7 @@ x - y = 2
 \[ 
 \begin{cases} 
 x = 6 \\
-y = 4 
+y = 5 
 \end{cases}
 \]
 
@@ -104,10 +104,10 @@ y = 4
   "solution": ["x = 6", "y = 4"],
   "solution-student": ["x = 6", "y = 5"],
   "comments": [
-    "Tu as bien résolu pour x, mais il y a une erreur dans le calcul de y. Revois la deuxième équation après avoir trouvé x.",
-    "Ta valeur de y est incorrecte. Rappelle-toi de substituer x dans la première équation pour trouver y."
+    "Tu as bien trouvé la valeur de x, mais y est incorrect. Revois tes calculs pour y. Lorsque tu trouves x = 6, utilise x + y = 10 pour trouver y.",
+    "Vérifie la deuxième équation en substituant la valeur de x."
   ],
-  "grade": 15,
+  "grade": 12,
   "summary": "Bon travail dans l'ensemble, mais fais attention aux détails dans tes calculs. Tu y es presque, continue comme ça !"
 }
 ```
