@@ -43,22 +43,22 @@ const UniversePicker = () => {
         }
     };
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1 className="text-2xl font-bold text-center mb-4">
-                Choisir ton univers préféré
+        <div className="flex flex-col items-center justify-center min-h-screen py-2 mt-20">
+            <h1 className="text-xl text-center mb-4 text-secondary font-light">
+                TU VEUX QUE TON EXERCICE PARLE DE QUOI ?
             </h1>
-            <div className="flex flex-wrap justify-center gap-5">
+            <div className="flex flex-wrap justify-center gap-5 mt-10">
                 {isLoading ? <div className="w-full bg-slate-500">Loading</div> : <>
                     <Image
-                        src="/harry-potter-image.png" // replace with your image path
+                        src="/harry-potter-universe.png" // replace with your image path
                         alt="Harry Potter"
                         width={300}
-                        height={150}
+                        height={100}
                         className="cursor-pointer"
                         onClick={() => chooseUniverse('harry-potter')}
                     />
                     <Image
-                        src="/roblox.jpeg" // replace with your image path
+                        src="/roblox-universe.png" // replace with your image path
                         alt="Roblox"
                         width={300}
                         height={100}
@@ -66,7 +66,7 @@ const UniversePicker = () => {
                         onClick={() => chooseUniverse('roblox')}
                     />
                     <Image
-                        src="/marvel.png" // replace with your image path
+                        src="/marvel-universe.png" // replace with your image path
                         alt="Marvel"
                         width={300}
                         height={100}
@@ -74,7 +74,7 @@ const UniversePicker = () => {
                         onClick={() => chooseUniverse('marvel')}
                     />
                     <Image
-                        src="/minecraft.jpeg" // replace with your image path
+                        src="/minecraft-universe.png" // replace with your image path
                         alt="Minecraft"
                         width={300}
                         height={100}
@@ -82,7 +82,6 @@ const UniversePicker = () => {
                         onClick={() => chooseUniverse('minecraft')}
                     />
                 </>}
-                <Button disabled> Ajoute ton propre univers (à venir demain)</Button>
             </div>
         </div>
     );

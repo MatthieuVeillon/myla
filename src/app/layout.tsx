@@ -19,7 +19,7 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={cn(
-            "mx-4 min-h-screen bg-background font-sans",
+            "m-6 min-h-screen bg-background font-sans",
             poppins.variable
         )}>{children}</body>
         </html>
