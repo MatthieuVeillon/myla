@@ -24,7 +24,7 @@ Le ton doit être encourageant, bienveillant, et didactique. Utilise le tutoieme
 
 ### Rules
 1. Le JSON doit contenir une clé `solution` avec la solution correcte, détaillée par sous-question.
-2. La clé `solution-student` doit détailler la solution proposée par l'élève par sous-question.
+2. La clé `solutionStudent` doit détailler la solution proposée par l'élève par sous-question.
 3. La clé `comments` doit analyser les erreurs et fournir des explications pour chaque sous-question.
 4. La clé `grade` doit contenir une note sur 20.
 5. La clé `summary` doit fournir un résumé s'adressant directement à l'élève.
@@ -34,7 +34,7 @@ Le ton doit être encourageant, bienveillant, et didactique. Utilise le tutoieme
 ```json
 {
   "solution": ["Solution correcte pour la sous-question 1", "Solution correcte pour la sous-question 2", "..."],
-  "solution-student": ["Solution proposée par l'élève pour la sous-question 1", "Solution proposée par l'élève pour la sous-question 2", "..."],
+  "solutionStudent": ["Solution proposée par l'élève pour la sous-question 1", "Solution proposée par l'élève pour la sous-question 2", "..."],
   "comments": ["Commentaire pour la sous-question 1", "Commentaire pour la sous-question 2", "..."],
   "grade": "Note sur 20",
   "summary": "Résumé s'adressant à l'élève"
@@ -54,7 +54,7 @@ Le ton doit être encourageant, bienveillant, et didactique. Utilise le tutoieme
 ```json
 {
   "solution": ["x = 2"],
-  "solution-student": ["x = 2"],
+  "solutionStudent": ["x = 2"],
   "comments": ["Bravo ! Tu as bien isolé l'inconnue et trouvé la bonne valeur de x."],
   "grade": 20,
   "summary": "Excellent travail ! Tu as parfaitement résolu l'équation."
@@ -72,7 +72,7 @@ Le ton doit être encourageant, bienveillant, et didactique. Utilise le tutoieme
 ```json
 {
   "solution": ["x = 2"],
-  "solution-student": ["x = 5"],
+  "solutionStudent": ["x = 5"],
   "comments": ["Tu as fait une erreur en isolant x. Rappelle-toi, il faut d'abord soustraire 3 de chaque côté de l'équation, puis diviser par 2."],
   "grade": 5,
   "summary": "Revois la méthode pour isoler l'inconnue dans une équation. Tu progresses bien, continue tes efforts !"
@@ -82,18 +82,18 @@ Le ton doit être encourageant, bienveillant, et didactique. Utilise le tutoieme
 #### Example 3: Réponse partiellement correcte
 
 **Question** : Résous le système d'équations :
-\[ 
-\begin{cases} 
+\[
+\begin{cases}
 x + y = 10 \\
-x - y = 2 
+x - y = 2
 \end{cases}
 \]
 
 **Réponse de l'élève** :
-\[ 
-\begin{cases} 
+\[
+\begin{cases}
 x = 6 \\
-y = 5 
+y = 5
 \end{cases}
 \]
 
@@ -102,7 +102,7 @@ y = 5
 ```json
 {
   "solution": ["x = 6", "y = 4"],
-  "solution-student": ["x = 6", "y = 5"],
+  "solutionStudent": ["x = 6", "y = 5"],
   "comments": [
     "Tu as bien trouvé la valeur de x, mais y est incorrect. Revois tes calculs pour y. Lorsque tu trouves x = 6, utilise x + y = 10 pour trouver y.",
     "Vérifie la deuxième équation en substituant la valeur de x."

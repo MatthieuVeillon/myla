@@ -49,7 +49,9 @@ export type AnalyzeExerciseFromFrontToBackPayload = {
 }
 
 export type AnalyzeExerciseFromBackToFrontPayload = {
-    successRateImage?: Base64
+    grade:string,
     summary: string
+    solution: string[]
+    solutionStudent: string[]
     comments: string[]
 }
