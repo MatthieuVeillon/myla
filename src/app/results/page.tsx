@@ -2,7 +2,6 @@
 
 import {useRouter, useSearchParams} from 'next/navigation';
 
-import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {Suspense} from "react";
 import {useGlobalStore} from "@/state/store";

@@ -4,104 +4,101 @@ import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
-import { CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
+import {CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
 import {Suspense, useState} from "react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 type Response = {
     data: CreateExerciseFromBackToFrontPayload
 }
 
 const UniversePicker = () => {
-    const router = useRouter();
-    const courseImages = useGlobalStore((state) => state.courseImages);
-    const exercise = useGlobalStore((state) => state.exercise);
-    const setExercise = useGlobalStore((state) => state.setExercise);
-    const [isLoading, setIsLoading] = useState(false);
+        const router = useRouter();
+        const courseImages = useGlobalStore((state) => state.courseImages);
+        const exercise = useGlobalStore((state) => state.exercise);
+        const setExercise = useGlobalStore((state) => state.setExercise);
+        const [isLoading, setIsLoading] = useState(false);
 
-    const searchParams = useSearchParams()
-    const debug = searchParams.get('debug')
+        const searchParams = useSearchParams()
+        const debug = searchParams.get('debug')
 
-    const chooseUniverse = async (universe: string) => {
-        const requestBody = {
-            courseImages,
-            theme: universe,
+        const chooseUniverse = async (universe: string) => {
+            const requestBody = {
+                courseImages,
+                theme: universe,
+            };
+            // Send the image to the backend
+            try {
+                setIsLoading(true)
+                const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/create-exercise', requestBody);
+                console.log(response.data);
+
+                //@ts-ignore
+                const parsedExercices = extractAndParseJSON(response.data.exercise)
+                setExercise(parsedExercices)
+
+                setIsLoading(false)
+                router.push(`/exercise-from-ia${debug ? '?debug=true' : ''}`);
+            } catch (error) {
+                console.error(error);
+            }
         };
-        // Send the image to the backend
-        try {
-            setIsLoading(true)
-            const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/create-exercise', requestBody);
-            console.log(response.data);
-
-            //@ts-ignore
-           const parsedExercices = extractAndParseJSON(response.data.exercise)
-            setExercise(parsedExercices)
-
-            setIsLoading(false)
-            router.push(`/exercise-from-ia${debug ? '?debug=true' : ''}`);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2 mt-8">
-            <h1 className="text-xl text-center mb-4 text-secondary font-light">
-                TU VEUX QUE TON EXERCICE PARLE DE QUOI ?
-            </h1>
-            <div className="flex flex-wrap justify-center gap-5 mt-10">
-                {isLoading ? <div className="w-full bg-slate-500">Loading</div> : <>
-                    <Image
-                        src="/harry-potter-universe.png" // replace with your image path
-                        alt="Harry Potter"
-                        width={300}
-                        height={100}
-                        className="cursor-pointer"
-                        onClick={() => chooseUniverse('harry-potter')}
-                    />
-                    <Image
-                        src="/roblox-universe.png" // replace with your image path
-                        alt="Roblox"
-                        width={300}
-                        height={100}
-                        className="cursor-pointer"
-                        onClick={() => chooseUniverse('roblox')}
-                    />
-                    <Image
-                        src="/marvel-universe.png" // replace with your image path
-                        alt="Marvel"
-                        width={300}
-                        height={100}
-                        className="cursor-pointer"
-                        onClick={() => chooseUniverse('marvel')}
-                    />
-                    <Image
-                        src="/minecraft-universe.png" // replace with your image path
-                        alt="Minecraft"
-                        width={300}
-                        height={100}
-                        className="cursor-pointer"
-                        onClick={() => chooseUniverse('minecraft')}
-                    />
-                </>}
+        return isLoading ? <LoadingSpinner/> :
+            <div className="flex flex-col items-center justify-center min-h-screen py-2 mt-8">
+                <h1 className="text-xl text-center mb-4 text-secondary font-light">
+                    TU VEUX QUE TON EXERCICE PARLE DE QUOI ?
+                </h1>
+                <div className="flex flex-wrap justify-center gap-5 mt-10">
+                    <>
+                        <Image
+                            src="/harry-potter-universe.png" // replace with your image path
+                            alt="Harry Potter"
+                            width={300}
+                            height={100}
+                            className="cursor-pointer"
+                            onClick={() => chooseUniverse('harry-potter')}
+                        />
+                        <Image
+                            src="/roblox-universe.png" // replace with your image path
+                            alt="Roblox"
+                            width={300}
+                            height={100}
+                            className="cursor-pointer"
+                            onClick={() => chooseUniverse('roblox')}
+                        />
+                        <Image
+                            src="/marvel-universe.png" // replace with your image path
+                            alt="Marvel"
+                            width={300}
+                            height={100}
+                            className="cursor-pointer"
+                            onClick={() => chooseUniverse('marvel')}
+                        />
+                        <Image
+                            src="/minecraft-universe.png" // replace with your image path
+                            alt="Minecraft"
+                            width={300}
+                            height={100}
+                            className="cursor-pointer"
+                            onClick={() => chooseUniverse('minecraft')}
+                        />
+                    </>
+                </div>
             </div>
-        </div>
-    );
-};
+    }
+
+;
 
 
 const UniversePickerSuspended = () => {
     return (
         // You could have a loading skeleton as the `fallback` too
         <Suspense>
-            <UniversePicker />
+            <UniversePicker/>
         </Suspense>
     )
 }
 export default UniversePickerSuspended;
-
-
-
-
-
 
 
 const courseTextFromAI = "1.⁠ ⁠Expérience aléatoire et issues possibles\n" +
