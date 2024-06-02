@@ -6,7 +6,7 @@ import {useGlobalStore} from '@/state/store';
 import {Button} from "@/components/ui/button";
 
 const MobilePage = () => {
-    const name = "TOM"
+    const name = "Léo"
     const webcamRef = useRef<any>(null); // Adjust type as needed
     const [showCamera, setShowCamera] = useState(false);
     const [capturedImage, setCapturedImage] = useState<string | null>(null); // Adjust type as needed
@@ -33,7 +33,7 @@ const MobilePage = () => {
     }, [webcamRef, setCourseImages, router]);
 
     return (
-        <div className="relative flex flex-col h-screen justify-between bg-cover bg-center p-4">
+        <div className="relative flex flex-col h-screen justify-between bg-cover bg-center">
             {showCamera ? (
                 <>
                     <div className="flex flex-col items-center justify-center flex-grow">
@@ -68,7 +68,7 @@ const MobilePage = () => {
                     {/* Centered content */}
                     <div className="relative flex flex-col justify-center items-center flex-grow">
                         <img src="/hello.png" alt="hello"
-                             className="w-75 h-75 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-80 xl:h-80"/>
+                             className="w-65 h-65 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-80 xl:h-80"/>
                     </div>
 
                     {/* Bottom centered content */}

@@ -43,7 +43,7 @@ const UniversePicker = () => {
         }
     };
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2 mt-20">
+        <div className="flex flex-col items-center justify-center min-h-screen py-2 mt-8">
             <h1 className="text-xl text-center mb-4 text-secondary font-light">
                 TU VEUX QUE TON EXERCICE PARLE DE QUOI ?
             </h1>
