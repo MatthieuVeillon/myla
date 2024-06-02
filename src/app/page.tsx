@@ -4,8 +4,6 @@ import {Suspense, useCallback, useRef, useState} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import Webcam from 'react-webcam';
 import {useGlobalStore} from "@/state/store";
-import MobilePage from "@/app/take-photo-lessons/page";
-import Image from "next/image";
 
 
 const WebcamCapture = () => {
