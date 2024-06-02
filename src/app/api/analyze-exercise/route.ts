@@ -153,14 +153,19 @@ const processImageAndText = async (imageBase64: string, inputText: string): Prom
 
 
 export async function POST(req: Request) {
+    console.log("letsgo")
     const body = await req.json()
-    const { questions, solutions, courseTextFromAI } = body
+    const { questions, solutions } = body
+    console.log(questions)
+    console.log("\n\n\n\n")
+    console.log(solutions)
+    console.log("\n\n\n\n")
+
     try {
         let prompt = fs.readFileSync(path.resolve("scripts/prompts/prompt_B.txt")).toString();
         const exo = (questions as Question[]).map(({title, description}) =>`${title}: ${description}`).join("\n")
-        const cours = courseTextFromAI.toString();
 
-        prompt = prompt.replace('ICI_EXERCICE', exo).replace('ICI_COURS', "DEBUT COURS\n" + cours + "FIN COURS\n")
+        prompt = prompt.replace('ICI_EXERCICE', exo)
         console.log(prompt)
         const feedbackExercice = await processImageAndText(solutions[0], prompt).catch(console.error);
         console.log(feedbackExercice)
