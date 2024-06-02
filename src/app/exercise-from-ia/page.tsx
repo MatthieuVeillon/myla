@@ -82,7 +82,7 @@ const ExerciseFromIA = () => {
             />
 
             <Button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
-                Upload solution
+                Envoie ta solution
             </Button>
         </div>
     );
