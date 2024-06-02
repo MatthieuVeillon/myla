@@ -14,8 +14,9 @@ type Response = {
 const UniversePicker = () => {
     const router = useRouter();
     const courseImages = useGlobalStore((state) => state.courseImages);
+    const exercise = useGlobalStore((state) => state.exercise);
+    const setExercise = useGlobalStore((state) => state.setExercise);
     const [isLoading, setIsLoading] = useState(false);
-    const [exercise, setExercise] = useState<CreateExerciseFromBackToFrontPayload | null>(null);
 
     console.log("courseImages", courseImages)
     const chooseUniverse = async (universe: string) => {
@@ -29,11 +30,12 @@ const UniversePicker = () => {
             const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/create-exercise', requestBody);
             console.log(response.data);
             setExercise(EXERCICE.data)
+
             setIsLoading(false)
+            router.push('/exercice-from-ia');
         } catch (error) {
             console.error(error);
         }
-        router.push('/exercice-from-ia');
     };
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -73,23 +75,114 @@ export default UniversePicker;
 // questions: Question[]
 // courseTextFromAI: string
 
+
+
+
+const questionsV2 =[
+            {
+                "title": "Expérience aléatoire en handball",
+                "description": "Imagine qu'un joueur de handball tire au but depuis le point de pénalty. Considérant cela comme une expérience aléatoire, quelles pourraient être les issues possibles de cette expérience?",
+                "hint": "Pense à tous les résultats différents qui pourraient se produire après un tir au but."
+            },
+            {
+                "title": "Probabilité de marquer un but",
+                "description": "Si un joueur de handball a une probabilité de 0,7 de marquer un but lorsqu'il tire depuis le point de pénalty, quelle est la probabilité qu'il ne marque pas de but?",
+                "hint": "Rappelle-toi que la somme des probabilités de toutes les issues possibles doit être égale à 1."
+            },
+        ]
+
+
+
+const courseTextFromAI = "1.⁠ ⁠Expérience aléatoire et issues possibles\n" +
+    "2.⁠ ⁠Probabilité d'une issue\n" +
+    "3.⁠ ⁠Propriété de la somme des probabilités\n" +
+    "4.⁠ ⁠Lien avec les fréquences\n" +
+    "5.⁠ ⁠Notion d'évènement\n" +
+    "6.⁠ ⁠Évènements incompatibles\n" +
+    "7.⁠ ⁠Exemple d'une expérience aléatoire à deux épreuves\n" +
+    "\n" +
+    "### Détail des notions\n" +
+    "\n" +
+    "#### 1. Expérience aléatoire et issues possibles\n" +
+    "Définition : Une expérience est dite aléatoire lorsqu'elle peut produire plusieurs résultats différents (issues possibles) et qu'il est impossible de prédire avec certitude lequel se produira.\n" +
+    "Importance : Comprendre cette notion est fondamental pour saisir le concept de probabilité et la manière dont elle est calculée.\n" +
+    "Exemples : \n" +
+    "•⁠  ⁠Lancer un dé non truqué avec des issues possibles de 1 à 6.\n" +
+    "•⁠  ⁠Tirer une boule d'une urne contenant des boules de différentes couleurs.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠Une expérience aléatoire produit des résultats imprévisibles.\n" +
+    "•⁠  ⁠Les issues possibles sont les différents résultats qui peuvent se produire.\n" +
+    "\n" +
+    "#### 2. Probabilité d'une issue\n" +
+    "Définition : La probabilité d'une issue est un nombre compris entre 0 et 1 qui indique la chance d'obtenir cette issue.\n" +
+    "Importance : C'est la base du calcul des probabilités, essentiel pour évaluer les chances d'événements dans diverses situations.\n" +
+    "Exemples : \n" +
+    "•⁠  ⁠Lancer un dé : la probabilité d'obtenir chaque chiffre (1, 2, 3, 4, 5 ou 6) est de 1/6.\n" +
+    "•⁠  ⁠Tirer une boule dans une urne avec différentes couleurs : calcul des probabilités en fonction du nombre de boules de chaque couleur.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠La probabilité d'une issue est toujours entre 0 et 1.\n" +
+    "•⁠  ⁠La somme des probabilités de toutes les issues d'une expérience aléatoire est égale à 1.\n" +
+    "\n" +
+    "#### 3. Propriété de la somme des probabilités\n" +
+    "Définition : La somme des probabilités de toutes les issues possibles d'une expérience est égale à 1.\n" +
+    "Importance : Cette propriété est cruciale pour vérifier que les probabilités attribuées sont correctes.\n" +
+    "Exemples :\n" +
+    "•⁠  ⁠Lancer un dé : p(1) + p(2) + p(3) + p(4) + p(5) + p(6) = 1.\n" +
+    "•⁠  ⁠Tirer une boule d'une urne : somme des probabilités de chaque couleur de boule.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠Vérifier que la somme des probabilités est égale à 1 pour s'assurer que la distribution des probabilités est correcte.\n" +
+    "\n" +
+    "#### 4. Lien avec les fréquences\n" +
+    "Définition : La fréquence d'un événement, lorsque l'expérience est répétée un grand nombre de fois, tend à se rapprocher de la probabilité de cet événement.\n" +
+    "Importance : Cela permet de relier la théorie des probabilités avec des observations empiriques.\n" +
+    "Exemples :\n" +
+    "•⁠  ⁠Lancer un dé 1000 fois : la fréquence d'obtention de chaque chiffre devrait se rapprocher de 1/6.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠La probabilité théorique peut être vérifiée expérimentalement par la fréquence relative.\n" +
+    "\n" +
+    "#### 5. Notion d'évènement\n" +
+    "Définition : Un événement est constitué d'une ou plusieurs issues d'une expérience aléatoire. Il peut être impossible, certain ou probable.\n" +
+    "Importance : Comprendre les événements permet d'analyser des situations complexes en termes de probabilités.\n" +
+    "Exemples :\n" +
+    "•⁠  ⁠Avoir un événement \"obtenir au moins 4\" en lançant un dé.\n" +
+    "•⁠  ⁠Avoir un événement \"obtenir une boule bleue ou verte\" en tirant une boule d'une urne.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠La probabilité d'un événement est la somme des probabilités des issues qui le composent.\n" +
+    "•⁠  ⁠Un événement impossible a une probabilité de 0.\n" +
+    "•⁠  ⁠Un événement certain a une probabilité de 1.\n" +
+    "\n" +
+    "#### 6. Évènements incompatibles\n" +
+    "Définition : Deux événements sont incompatibles s'ils ne peuvent pas se produire en même temps.\n" +
+    "Importance : Cette notion est essentielle pour calculer correctement les probabilités de certains événements combinés.\n" +
+    "Exemples :\n" +
+    "•⁠  ⁠L'événement \"obtenir 5\" et \"obtenir 6\" sont incompatibles lors du lancer d'un dé.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠La probabilité que l'un ou l'autre des événements incompatibles se produise est la somme de leurs probabilités individuelles.\n" +
+    "•⁠  ⁠La probabilité qu'un événement ne se produise pas est égale à 1 moins la probabilité qu'il se produise.\n" +
+    "\n" +
+    "#### 7. Exemple d'une expérience aléatoire à deux épreuves\n" +
+    "Définition : Une expérience à deux épreuves consiste à réaliser deux expériences aléatoires successives et à analyser les résultats combinés.\n" +
+    "Importance : Permet d'appliquer les principes de probabilité à des situations plus complexes et de comprendre la dépendance entre les épreuves.\n" +
+    "Exemples :\n" +
+    "•⁠  ⁠Lancer une pièce puis tirer une boule d'une urne.\n" +
+    "•⁠  ⁠Représentation par un arbre des probabilités des résultats combinés.\n" +
+    "\n" +
+    "Points clés :\n" +
+    "•⁠  ⁠La probabilité d'une issue combinée est le produit des probabilités des issues individuelles.\n" +
+    "•⁠  ⁠Utilisation d'arbres pour représenter visuellement les combinaisons d'issues."
+
+
+
 const EXERCICE: Response = {
     data: {
-        title: "Harry Potter Probability Exercise",
-        courseTextFromAI: "Harry Potter Probability Exercise",
-        questions: [
-            {
-                title: "Partie 1 : trouver la probabilité de base des cartes rouges",
-                description: "de tirer une carte rouge d'un jeu de cartes standard",
-                image: "rouge",
-                hint: "concentrez-vous sur les cartes rouges",
-            },
-            {
-                title: "Partie 2 : trouver la probabilité de base des cartes noires",
-                description: "de tirer une carte noires d'un jeu de cartes standard",
-                image: "noir",
-                hint: "concentrez-vous sur les cartes noires",
-            },
-        ],
+        title: "Exercice sur les probaliités en handball",
+        courseTextFromAI: courseTextFromAI,
+        questions: questionsV2,
     }
 }

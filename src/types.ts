@@ -3,7 +3,7 @@ export type Base64 = string
 
 // CREATE EXERCICE TYPES
 
-type Question = {
+export type Question = {
     title : string,
     description : string,
     image?: Base64,

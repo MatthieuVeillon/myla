@@ -11,6 +11,7 @@ const openai = new OpenAI({
 
 import fs from 'fs';
 import path from 'path';
+import {Question} from "@/types";
 
 // const processImageAndText = async (imagePath: string, inputText: string): Promise<string> => {
 //     // Lire l'image du disque
@@ -129,9 +130,11 @@ const processImageAndText = async (imageBase64: string, inputText: string): Prom
                 role: 'user',
                 content: JSON.stringify([
                     {
-                        type: "image_url", 
-                        image_url: 
+                        type: "image_url",
+                        image_url:
                         {
+
+                            //data:image/jpeg;base64,
                             url: "data:image/jpeg;base64," + base64Image
                         }
                     },
@@ -154,7 +157,7 @@ export async function POST(req: Request) {
     const { questions, solutions, courseTextFromAI } = body
     try {
         let prompt = fs.readFileSync(path.resolve("scripts/prompts/prompt_B.txt")).toString();
-        const exo = questions.toString();
+        const exo = (questions as Question[]).map(({title, description}) =>`${title}: ${description}`).join("\n")
         const cours = courseTextFromAI.toString();
 
         prompt = prompt.replace('ICI_EXERCICE', exo).replace('ICI_COURS', "DEBUT COURS\n" + cours + "FIN COURS\n")
