@@ -5,6 +5,7 @@ import {useRouter, useSearchParams} from 'next/navigation';
 import Webcam from 'react-webcam';
 import {useGlobalStore} from "@/state/store";
 import MobilePage from "@/app/take-photo-lessons/page";
+import HomeComponent from "@/app/welcome-page/page";
 
 
 const WebcamCapture = () => {
@@ -63,7 +64,7 @@ const WebcamCaptureSuspended = () => {
     return (
         // You could have a loading skeleton as the `fallback` too
         <Suspense>
-            <MobilePage name={'TOM'}></MobilePage>
+            <HomeComponent  onClick={() => {}} />
         </Suspense>
     )
 }
