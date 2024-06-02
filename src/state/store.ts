@@ -38,6 +38,9 @@ export const useGlobalStore = create<StoreState>()(
             feedback: {
                 summary: '',
                 comments: [],
+                solution: [],
+                solutionStudent: [],
+                grade:""
             },
             setFeedback: (newfeedback) => set((state) => ({feedback: newfeedback}))
         }),

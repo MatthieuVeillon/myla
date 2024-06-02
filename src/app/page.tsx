@@ -4,7 +4,6 @@ import {Suspense, useCallback, useRef, useState} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import Webcam from 'react-webcam';
 import {useGlobalStore} from "@/state/store";
-import MobilePage from "@/app/take-photo-lessons/page";
 
 
 const WebcamCapture = () => {
@@ -29,19 +28,28 @@ const WebcamCapture = () => {
         facingMode: {exact: "environment"}
     };
 
+    const navigateToTakePhotoLesson = () => {
+        router.push('/take-photo-lessons')
+    }
+
     return (
-        <MobilePage></MobilePage>
-        // <div className="flex flex-col items-center justify-center min-h-screen py-2">
-        //     <Webcam
-        //         audio={false}
-        //         ref={webcamRef}
-        //         screenshotFormat="image/jpeg"
-        //         className="w-full max-w-md"
-        //         videoConstraints={videoConstraints}
-        //     />
-        //     <button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
-        //         Capture photo
-        //     </button>
+        // <MobilePage></MobilePage>
+        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                className="w-full max-w-md"
+                videoConstraints={videoConstraints}
+            />
+            <button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
+                Capture photo
+            </button>
+        </div>
+
+        // <div className="bg-amber-50">
+        //     <Image src="homepage.png" alt={'myla char'}/>
+        //
         // </div>
     );
 };
@@ -59,3 +67,4 @@ const WebcamCaptureSuspended = () => {
     )
 }
 export default WebcamCaptureSuspended;
+
