@@ -46,11 +46,10 @@ export type CreateExerciseFromOpenAIToBack = {}
 export type AnalyzeExerciseFromFrontToBackPayload = {
     questions: Question[]
     solutions: Base64[],
-    courseTextFromAI: string
 }
 
 export type AnalyzeExerciseFromBackToFrontPayload = {
-    successRateImage: Base64
+    successRateImage?: Base64
     summary: string
     comments: string[]
 }

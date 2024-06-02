@@ -1,12 +1,14 @@
-import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
-import {Base64, CreateExerciseFromBackToFrontPayload} from "@/types";
+import {create} from 'zustand'
+import {devtools, persist} from 'zustand/middleware'
+import {AnalyzeExerciseFromBackToFrontPayload, Base64, CreateExerciseFromBackToFrontPayload} from "@/types";
 
 interface StoreState {
     courseImages: Base64[]
     setCourseImages: (image: Base64) => void,
     exercise: CreateExerciseFromBackToFrontPayload,
     setExercise: (newExercise: CreateExerciseFromBackToFrontPayload) => void,
+    feedback: AnalyzeExerciseFromBackToFrontPayload
+    setFeedback: (feedback: AnalyzeExerciseFromBackToFrontPayload) => void,
 }
 
 // const useGlobalStore = create<StoreState>()(
@@ -22,21 +24,25 @@ interface StoreState {
 // )
 
 
-
 export const useGlobalStore = create<StoreState>()(
     devtools(
-            (set) => ({
-                courseImages: [],
-                setCourseImages: (newImage) => set((state) => ({ courseImages: [...state.courseImages, newImage] })),
-                exercise: {
-                    title: '',
-                    questions: [],
-                    courseTextFromAI: '',
-                },
-                setExercise: (newExercise) => set((state) => ({ exercise: newExercise })),
-            }),
-            {
-                name: 'global-storage',
+        (set) => ({
+            courseImages: [],
+            setCourseImages: (newImage) => set((state) => ({courseImages: [...state.courseImages, newImage]})),
+            exercise: {
+                title: '',
+                questions: [],
+                courseTextFromAI: '',
             },
+            setExercise: (newExercise) => set((state) => ({exercise: newExercise})),
+            feedback: {
+                summary: '',
+                comments: [],
+            },
+            setFeedback: (newfeedback) => set((state) => ({feedback: newfeedback}))
+        }),
+        {
+            name: 'global-storage',
+        },
     ),
 )

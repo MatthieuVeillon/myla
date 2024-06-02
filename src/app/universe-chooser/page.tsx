@@ -1,11 +1,11 @@
 "use client"
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
-import {Base64, CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
-import {useState} from "react";
+import { CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
+import {Suspense, useState} from "react";
 
 type Response = {
     data: CreateExerciseFromBackToFrontPayload
@@ -18,11 +18,13 @@ const UniversePicker = () => {
     const setExercise = useGlobalStore((state) => state.setExercise);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log("courseImages", courseImages)
+    const searchParams = useSearchParams()
+    const debug = searchParams.get('debug')
+
     const chooseUniverse = async (universe: string) => {
         const requestBody = {
             courseImages,
-            theme: 'Harry Potter', //todo replace theme with the actual theme
+            theme: universe,
         };
         // Send the image to the backend
         try {
@@ -35,7 +37,7 @@ const UniversePicker = () => {
             setExercise(parsedExercices)
 
             setIsLoading(false)
-            router.push('/exercice-from-ia');
+            router.push(`/exercise-from-ia${debug ? '?debug=true' : ''}`);
         } catch (error) {
             console.error(error);
         }
@@ -70,29 +72,20 @@ const UniversePicker = () => {
     );
 };
 
-export default UniversePicker;
+
+const UniversePickerSuspended = () => {
+    return (
+        // You could have a loading skeleton as the `fallback` too
+        <Suspense>
+            <UniversePicker />
+        </Suspense>
+    )
+}
+export default UniversePickerSuspended;
 
 
-// title: string
-// image?: Base64
-// questions: Question[]
-// courseTextFromAI: string
 
 
-
-
-const questionsV2 =[
-            {
-                "title": "Expérience aléatoire en handball",
-                "description": "Imagine qu'un joueur de handball tire au but depuis le point de pénalty. Considérant cela comme une expérience aléatoire, quelles pourraient être les issues possibles de cette expérience?",
-                "hint": "Pense à tous les résultats différents qui pourraient se produire après un tir au but."
-            },
-            {
-                "title": "Probabilité de marquer un but",
-                "description": "Si un joueur de handball a une probabilité de 0,7 de marquer un but lorsqu'il tire depuis le point de pénalty, quelle est la probabilité qu'il ne marque pas de but?",
-                "hint": "Rappelle-toi que la somme des probabilités de toutes les issues possibles doit être égale à 1."
-            },
-        ]
 
 
 
@@ -179,16 +172,6 @@ const courseTextFromAI = "1.⁠ ⁠Expérience aléatoire et issues possibles\n"
     "Points clés :\n" +
     "•⁠  ⁠La probabilité d'une issue combinée est le produit des probabilités des issues individuelles.\n" +
     "•⁠  ⁠Utilisation d'arbres pour représenter visuellement les combinaisons d'issues."
-
-
-
-const EXERCICE: Response = {
-    data: {
-        title: "Exercice sur les probaliités en handball",
-        courseTextFromAI: courseTextFromAI,
-        questions: questionsV2,
-    }
-}
 
 
 function extractAndParseJSON(input: string) {

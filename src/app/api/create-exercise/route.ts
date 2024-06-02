@@ -17,6 +17,7 @@ const processImages = async (courseImages: string[]): Promise<string> => {
             type: 'image_url',
             image_url: {
                 url: image,
+                detail: "low"
             },
         }
     })
@@ -146,6 +147,3 @@ export async function POST(req: Request) {
         })
     }
 }
-
-
-" Error processing images or generating exercise: Error: 400 Missing required parameter: 'messages[1].role'."

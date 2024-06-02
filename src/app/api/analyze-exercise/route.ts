@@ -133,9 +133,8 @@ const processImageAndText = async (imageBase64: string, inputText: string): Prom
                         type: "image_url",
                         image_url:
                         {
-
-                            //data:image/jpeg;base64,
-                            url: "data:image/jpeg;base64," + base64Image
+                            url: base64Image,
+                            detail: "low"
                         }
                     },
                     {
@@ -153,18 +152,23 @@ const processImageAndText = async (imageBase64: string, inputText: string): Prom
 
 
 export async function POST(req: Request) {
+    console.log("letsgo")
     const body = await req.json()
-    const { questions, solutions, courseTextFromAI } = body
+    const { questions, solutions } = body
+    console.log(questions)
+    console.log("\n\n\n\n")
+    console.log(solutions)
+    console.log("\n\n\n\n")
+
     try {
         let prompt = fs.readFileSync(path.resolve("scripts/prompts/prompt_B.txt")).toString();
         const exo = (questions as Question[]).map(({title, description}) =>`${title}: ${description}`).join("\n")
-        const cours = courseTextFromAI.toString();
 
-        prompt = prompt.replace('ICI_EXERCICE', exo).replace('ICI_COURS', "DEBUT COURS\n" + cours + "FIN COURS\n")
+        prompt = prompt.replace('ICI_EXERCICE', exo)
         console.log(prompt)
         const feedbackExercice = await processImageAndText(solutions[0], prompt).catch(console.error);
         console.log(feedbackExercice)
-        return Response.json({feedbackExercice})
+        return Response.json(feedbackExercice)
     } catch (error) {
         return new Response(` Error processing images or generating exercise: ${error}`, {
             status: 500,
