@@ -4,6 +4,7 @@ import {Suspense, useCallback, useRef, useState} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import Webcam from 'react-webcam';
 import {useGlobalStore} from "@/state/store";
+import MobilePage from "@/app/take-photo-lessons/page";
 
 
 const WebcamCapture = () => {
@@ -29,18 +30,19 @@ const WebcamCapture = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <Webcam
-                audio={false}
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                className="w-full max-w-md"
-                videoConstraints={videoConstraints}
-            />
-            <button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
-                Capture photo
-            </button>
-        </div>
+        <MobilePage></MobilePage>
+        // <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        //     <Webcam
+        //         audio={false}
+        //         ref={webcamRef}
+        //         screenshotFormat="image/jpeg"
+        //         className="w-full max-w-md"
+        //         videoConstraints={videoConstraints}
+        //     />
+        //     <button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
+        //         Capture photo
+        //     </button>
+        // </div>
     );
 };
 
