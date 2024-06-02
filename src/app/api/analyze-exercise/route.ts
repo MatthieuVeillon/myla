@@ -160,7 +160,7 @@ export async function POST(req: Request) {
     console.log("\n\n\n\n")
 
     try {
-        let prompt = fs.readFileSync(path.resolve("scripts/prompts/prompt_B.txt")).toString();
+        let prompt = fs.readFileSync(path.resolve("scripts/prompts/promptB.txt")).toString();
         const exo = (questions as Question[]).map(({title, description}) =>`${title}: ${description}`).join("\n")
 
         prompt = prompt.replace('ICI_EXERCICE', exo)
