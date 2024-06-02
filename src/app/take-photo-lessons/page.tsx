@@ -12,10 +12,13 @@ const MobilePage = () => {
 
     const capture = () => {
         // Access the webcam using the webcamRef and capture the photo
+
+        //@ts-ignore
         const imageSrc = webcamRef.current.getScreenshot();
         // Check if the number of captured images is less than 10 before adding a new image
         if (capturedImages.length < 10) {
             // Update state with captured images
+            //@ts-ignore
             setCapturedImages([...capturedImages, imageSrc]);
         }
     };
@@ -27,29 +30,33 @@ const MobilePage = () => {
             setCapturedImages([]); // Reset captured images when camera view is toggled
         }
     };
-
+    const videoConstraints = {
+        facingMode: {exact: "environment"}
+    };
     return (
         <div className="relative flex flex-col h-screen justify-between bg-cover bg-center p-4">
             {/* Display camera when button is clicked */}
             {showCamera ? (
                 <>
-                    <img src="takePhoto.png" alt="Prend une photo"
-                         className="absolute top-5 right-1/2 transform translate-x-1/2 w-52 h-46"/>
+                    {/*<img src="takePhoto.png" alt="Prend une photo" className="absolute top-5 right-1/2 transform translate-x-1/2 w-52 h-46"/>*/}
                     <div className="flex flex-col items-center justify-center flex-grow">
                         <Webcam
                             audio={false}
                             ref={webcamRef}
                             screenshotFormat="image/jpeg"
                             className="w-full max-w-md rounded-md overflow-hidden"
+                            videoConstraints={videoConstraints}
                         />
                         <div className="flex justify-between mt-4">
-                            <button onClick={capture} className="px-4 py-2 bg-blue-500 text-white rounded-md">Prend une photo
+                            <button onClick={capture} className="px-4 py-2 bg-blue-500 text-white rounded-md">Prend une
+                                photo
                             </button>
                         </div>
                         {/* Display a list of captured images */}
                         <div className="mt-4">
                             {capturedImages.map((image, index) => (
-                                <img key={index} src={image} alt={`Captured ${index}`} className="w-24 h-24 rounded-md shadow-md mr-2 mb-2"/>
+                                <img key={index} src={image} alt={`Captured ${index}`}
+                                     className="w-24 h-24 rounded-md shadow-md mr-2 mb-2"/>
                             ))}
                         </div>
                     </div>
