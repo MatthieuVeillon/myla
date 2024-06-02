@@ -63,7 +63,7 @@ const WebcamCaptureSuspended = () => {
     return (
         // You could have a loading skeleton as the `fallback` too
         <Suspense>
-            <MobilePage name={'TOM'}></MobilePage>
+            <MobilePage/>
         </Suspense>
     )
 }
