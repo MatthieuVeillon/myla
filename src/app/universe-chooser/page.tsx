@@ -24,7 +24,7 @@ const UniversePicker = () => {
     const chooseUniverse = async (universe: string) => {
         const requestBody = {
             courseImages,
-            theme: 'Harry Potter', //todo replace theme with the actual theme
+            theme: universe,
         };
         // Send the image to the backend
         try {
@@ -86,18 +86,6 @@ export default UniversePickerSuspended;
 
 
 
-const questionsV2 =[
-            {
-                "title": "Expérience aléatoire en handball",
-                "description": "Imagine qu'un joueur de handball tire au but depuis le point de pénalty. Considérant cela comme une expérience aléatoire, quelles pourraient être les issues possibles de cette expérience?",
-                "hint": "Pense à tous les résultats différents qui pourraient se produire après un tir au but."
-            },
-            {
-                "title": "Probabilité de marquer un but",
-                "description": "Si un joueur de handball a une probabilité de 0,7 de marquer un but lorsqu'il tire depuis le point de pénalty, quelle est la probabilité qu'il ne marque pas de but?",
-                "hint": "Rappelle-toi que la somme des probabilités de toutes les issues possibles doit être égale à 1."
-            },
-        ]
 
 
 

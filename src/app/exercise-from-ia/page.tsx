@@ -22,6 +22,7 @@ const ExerciseFromIA = () => {
     const webcamRef = useRef(null);
     const searchParams = useSearchParams()
     const exercise = useGlobalStore((state) => state.exercise);
+    const setFeedback = useGlobalStore((state) => state.setFeedback);
     const router = useRouter();
     const debug = searchParams.get('debug')
 
@@ -32,14 +33,14 @@ const ExerciseFromIA = () => {
         const requestBody: AnalyzeExerciseFromFrontToBackPayload = {
             solutions: [debug ? base64Solution : solutionImgSrc],
             questions: exercise.questions,
-            courseTextFromAI: exercise.courseTextFromAI,
         };
 
         const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/analyze-exercise', requestBody);
 
-        console.log("response", response.data);
+        //@ts-ignore
+        setFeedback(JSON.parse(response.data))
 
-        // router.push('/response-chooser');
+        router.push('/results');
     }, [webcamRef, router]);
 
 

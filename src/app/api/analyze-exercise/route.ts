@@ -167,7 +167,7 @@ export async function POST(req: Request) {
         console.log(prompt)
         const feedbackExercice = await processImageAndText(solutions[0], prompt).catch(console.error);
         console.log(feedbackExercice)
-        return Response.json({feedbackExercice})
+        return Response.json(feedbackExercice)
     } catch (error) {
         return new Response(` Error processing images or generating exercise: ${error}`, {
             status: 500,

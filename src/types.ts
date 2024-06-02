@@ -49,7 +49,7 @@ export type AnalyzeExerciseFromFrontToBackPayload = {
 }
 
 export type AnalyzeExerciseFromBackToFrontPayload = {
-    successRateImage: Base64
+    successRateImage?: Base64
     summary: string
     comments: string[]
 }
