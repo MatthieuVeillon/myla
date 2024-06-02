@@ -41,13 +41,12 @@ const ExerciseFromIA = () => {
         //@ts-ignore
         const parsedFeedback = extractAndParseJSON(response.data)
 
-        console.log("parsedFeedback", parsedFeedback)
 
         //@ts-ignore
         setFeedback(parsedFeedback)
 
         router.push('/results');
-    }, [webcamRef, router]);
+    }, [debug, exercise.questions, setFeedback, router]);
 
 
     const videoConstraints = {

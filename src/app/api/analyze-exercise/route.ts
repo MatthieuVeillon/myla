@@ -150,7 +150,7 @@ const processImageAndText = async (imageBase64: string, inputText: string): Prom
     return outputText;
 };
 
-
+export const maxDuration = 60;
 export async function POST(req: Request) {
     console.log("letsgo")
     const body = await req.json()
