@@ -58,12 +58,28 @@ const UniversePicker = () => {
                         onClick={() => chooseUniverse('harry-potter')}
                     />
                     <Image
+                        src="/roblox.jpeg" // replace with your image path
+                        alt="Roblox"
+                        width={300}
+                        height={100}
+                        className="cursor-pointer"
+                        onClick={() => chooseUniverse('roblox')}
+                    />
+                    <Image
                         src="/marvel.png" // replace with your image path
                         alt="Marvel"
                         width={300}
                         height={100}
                         className="cursor-pointer"
                         onClick={() => chooseUniverse('marvel')}
+                    />
+                    <Image
+                        src="/minecraft.jpeg" // replace with your image path
+                        alt="Minecraft"
+                        width={300}
+                        height={100}
+                        className="cursor-pointer"
+                        onClick={() => chooseUniverse('minecraft')}
                     />
                 </>}
                 <Button disabled> Ajoute ton propre univers (à venir demain)</Button>
