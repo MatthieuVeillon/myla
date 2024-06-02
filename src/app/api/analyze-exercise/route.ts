@@ -133,9 +133,7 @@ const processImageAndText = async (imageBase64: string, inputText: string): Prom
                         type: "image_url",
                         image_url:
                         {
-
-                            //data:image/jpeg;base64,
-                            url: "data:image/jpeg;base64," + base64Image
+                            url: base64Image
                         }
                     },
                     {
