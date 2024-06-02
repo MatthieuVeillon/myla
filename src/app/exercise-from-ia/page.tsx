@@ -1,6 +1,6 @@
 "use client"
 
-import {useState, useCallback, useRef, Suspense} from 'react';
+import React, {useState, useCallback, useRef, Suspense} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import Webcam from 'react-webcam';
 
@@ -14,6 +14,7 @@ import {
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
 import MathsComponent from "@/components/ui/mathsComponent";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 type Response = {
     data: AnalyzeExerciseFromBackToFrontPayload
@@ -26,6 +27,8 @@ const ExerciseFromIA = () => {
     const setFeedback = useGlobalStore((state) => state.setFeedback);
     const router = useRouter();
     const debug = searchParams.get('debug')
+    const [showCamera, setShowCamera] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const capture = useCallback(async () => {
         // @ts-ignore
@@ -35,12 +38,11 @@ const ExerciseFromIA = () => {
             solutions: [debug ? base64Solution : solutionImgSrc],
             questions: exercise.questions,
         };
-
+        setIsLoading(true)
         const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/analyze-exercise', requestBody);
-
+        setIsLoading(false)
         //@ts-ignore
         const parsedFeedback = extractAndParseJSON(response.data)
-
 
         //@ts-ignore
         setFeedback(parsedFeedback)
@@ -49,31 +51,36 @@ const ExerciseFromIA = () => {
     }, [debug, exercise.questions, setFeedback, router]);
 
 
+    const handleButtonClick = () => {
+        setShowCamera(true);
+    };
+
+
     const videoConstraints = {
         facingMode: {exact: "environment"}
     };
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1 className="text-2xl font-bold text-center mb-4">
-                {exercise.title}
-            </h1>
+
+    return isLoading ? <LoadingSpinner/> : <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <h1 className="text-2xl font-bold text-center mb-4 text-secondary">
+            TON EXERCICE PERSONNALISE :)
+        </h1>
 
 
-            {exercise.questions.map((question, index) => (
-                <div key={index}>
-                    <h3 className="text-center mt-4 font-bold">
-                        {question.title}
-                    </h3>
-                    <p className="text-justify mt-4">
-                        <MathsComponent>
+        {!showCamera && exercise.questions.map((question, index) => (
+            <div key={index}>
+                <h3 className="text-left mt-4 font-bold">
+                    {index + 1}) {question.title}
+                </h3>
+                <p className="text-justify mt-4 mb-6">
+                    <MathsComponent>
                         {question.description}
-                            </MathsComponent>
-                    </p>
-                </div>
-            ))}
+                    </MathsComponent>
+                </p>
+            </div>
+        ))}
 
-            <Webcam
+        {showCamera ? <><Webcam
                 audio={false}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
@@ -81,12 +88,26 @@ const ExerciseFromIA = () => {
                 videoConstraints={videoConstraints}
             />
 
-            <Button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
-                Envoie ta solution
-            </Button>
-        </div>
-    );
+                <Button onClick={capture} className="mt-4 p-2 bg-blue-500 text-white rounded">
+                    Prends la photo
+                </Button> </> :
+            <div className="relative flex justify-center pb-8 flex-col items-center" style={{color: '#4E6F63'}}>
+                <p className='text-secondary font-semibold text-center mb-2 text-xl'>{"Prends une photo de ton exercice fait sur papier"} </p>
+                <button onClick={handleButtonClick}
+                        className="flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-md backdrop-blur-lg backdrop-brightness-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                         stroke="currentColor" className="size-12">
+                        <path strokeLinecap="round" strokeLinejoin="round"
+                              d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"/>
+                        <path strokeLinecap="round" strokeLinejoin="round"
+                              d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"/>
+                    </svg>
+                </button>
+            </div>
+        }
+    </div>
 };
+
 
 const ExerciseFromIASuspended = () => {
     return (
