@@ -29,7 +29,10 @@ const UniversePicker = () => {
             setIsLoading(true)
             const response = await axios.post<CreateExerciseFromFrontToBackPayload, Response>('api/create-exercise', requestBody);
             console.log(response.data);
-            setExercise(EXERCICE.data)
+
+            //@ts-ignore
+           const parsedExercices = extractAndParseJSON(response.data.exercise)
+            setExercise(parsedExercices)
 
             setIsLoading(false)
             router.push('/exercice-from-ia');
@@ -185,4 +188,18 @@ const EXERCICE: Response = {
         courseTextFromAI: courseTextFromAI,
         questions: questionsV2,
     }
+}
+
+
+function extractAndParseJSON(input: string) {
+
+    const jsonStart = input.indexOf('```json');
+    const jsonEnd = input.lastIndexOf('```');
+
+    if (jsonStart === -1 || jsonEnd === -1) {
+        throw new Error('No JSON string found in the input');
+    }
+
+    const jsonString = input.substring(jsonStart + 7, jsonEnd);
+    return JSON.parse(jsonString);
 }
