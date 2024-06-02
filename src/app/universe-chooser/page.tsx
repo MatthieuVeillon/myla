@@ -1,11 +1,11 @@
 "use client"
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 import {useGlobalStore} from "@/state/store";
 import axios from "axios";
 import { CreateExerciseFromBackToFrontPayload, CreateExerciseFromFrontToBackPayload} from "@/types";
-import {useState} from "react";
+import {Suspense, useState} from "react";
 
 type Response = {
     data: CreateExerciseFromBackToFrontPayload
@@ -17,6 +17,9 @@ const UniversePicker = () => {
     const exercise = useGlobalStore((state) => state.exercise);
     const setExercise = useGlobalStore((state) => state.setExercise);
     const [isLoading, setIsLoading] = useState(false);
+
+    const searchParams = useSearchParams()
+    const debug = searchParams.get('debug')
 
     const chooseUniverse = async (universe: string) => {
         const requestBody = {
@@ -34,7 +37,7 @@ const UniversePicker = () => {
             setExercise(parsedExercices)
 
             setIsLoading(false)
-            router.push('/exercice-from-ia');
+            router.push(`/exercise-from-ia${debug ? '?debug=true' : ''}`);
         } catch (error) {
             console.error(error);
         }
@@ -69,13 +72,16 @@ const UniversePicker = () => {
     );
 };
 
-export default UniversePicker;
 
-
-// title: string
-// image?: Base64
-// questions: Question[]
-// courseTextFromAI: string
+const UniversePickerSuspended = () => {
+    return (
+        // You could have a loading skeleton as the `fallback` too
+        <Suspense>
+            <UniversePicker />
+        </Suspense>
+    )
+}
+export default UniversePickerSuspended;
 
 
 

@@ -11,17 +11,17 @@ const WebcamCapture = () => {
     const searchParams = useSearchParams()
     const [imgSrc, setImgSrc] = useState(null);
     const setCourseImages = useGlobalStore((state) => state.setCourseImages);
-    const debug = searchParams.get('debug')
     const router = useRouter();
 
+    const debug = searchParams.get('debug')
     console.log("debug", debug)
     const capture = useCallback(() => {
         // @ts-ignore
         const imageSrc = webcamRef?.current?.getScreenshot();
 
-            setCourseImages(debug ? IMAGE_1 : imageSrc);
-            console.log("imageSrc", imageSrc)
-            router.push('/universe-chooser');
+        setCourseImages(debug ? IMAGE_1 : imageSrc);
+        console.log("imageSrc", imageSrc)
+        router.push(`/universe-chooser${debug ? '?debug=true' : ''}`);
     }, [webcamRef, setCourseImages, router]);
 
     const videoConstraints = {
@@ -52,7 +52,7 @@ const WebcamCaptureSuspended = () => {
     return (
         // You could have a loading skeleton as the `fallback` too
         <Suspense>
-            <WebcamCapture />
+            <WebcamCapture/>
         </Suspense>
     )
 }
