@@ -2,9 +2,10 @@ import React, {FC} from 'react';
 import {Loader2} from "lucide-react";
 
 interface LoadingSpinnerProps {
+    isAnalyzed?: boolean;
 }
 
-const LoadingSpinner: FC<LoadingSpinnerProps> = ({}) => {
+const LoadingSpinner: FC<LoadingSpinnerProps> = ({isAnalyzed}) => {
     return (
         <div className="min-h-screen w-full flex justify-center items-center flex-col gap-8">
             <Loader2 className="mr-2 h-20 w-20 animate-spin text-secondary"/>

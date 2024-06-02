@@ -4,6 +4,7 @@ import Webcam from 'react-webcam';
 import {useRouter} from 'next/navigation';
 import {useGlobalStore} from '@/state/store';
 import {Button} from "@/components/ui/button";
+import Image from 'next/image';
 
 const MobilePage = () => {
     const name = "Léo"
@@ -54,7 +55,7 @@ const MobilePage = () => {
             ) : (
                 <>
                     {/* Top left corner content */}
-                    <div className="relative flex items-center space-x-4 p-4">
+                    <div className="relative flex items-center space-x-2">
                         {/* Round image profil */}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                              stroke="currentColor" className="size-6">
@@ -66,14 +67,13 @@ const MobilePage = () => {
                     </div>
 
                     {/* Centered content */}
-                    <div className="relative flex flex-col justify-center items-center flex-grow">
-                        <img src="/hello.png" alt="hello"
-                             className="w-65 h-65 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-80 xl:h-80"/>
+                    <div className="relative flex flex-col justify-center items-center ">
+                        <Image src="/hello.png" alt="hello" width={200} height={200}/>
                     </div>
 
                     {/* Bottom centered content */}
-                    <div className="relative flex flex-col justify-center items-center flex-grow">
-                        <h3 className="relative flex flex-col justify-center items-center flex-grow "
+                    <div className="relative flex flex-col justify-center items-center">
+                        <h3 className="relative flex flex-col justify-center items-center "
                             style={{color: '#4E6F63'}}>{"ON S'Y MET ?"}</h3>
                         <h1 className="relative flex flex-col justify-center items-center flex-grow text-2xl font-bold"
                             style={{color: '#4E6F63'}}>Prends une photo</h1>
@@ -82,7 +82,7 @@ const MobilePage = () => {
                     </div>
 
                     {/* Bottom centered icon button */}
-                    <div className="relative flex justify-center pb-8" style={{color: '#4E6F63'}}>
+                    <div className="relative flex justify-center" style={{color: '#4E6F63'}}>
                         <button onClick={handleButtonClick}
                                 className="flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-md backdrop-blur-lg backdrop-brightness-50">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
@@ -93,6 +93,14 @@ const MobilePage = () => {
                                       d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"/>
                             </svg>
                         </button>
+                    </div>
+
+                    <div
+                        className="flex flex-col w-full justify-center items-center text-secondary font-semibold gap-2">
+                        <span>ou choisissez des cours deja préparés</span>
+                        <Button variant="secondary" className="text-white min-w-60" size="lg">Multiples et diviseurs</Button>
+                        <Button variant="secondary" className="text-white min-w-60" size="lg">Image et antécédents</Button>
+
                     </div>
                 </>
             )}
