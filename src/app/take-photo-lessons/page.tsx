@@ -3,12 +3,10 @@ import React, {useCallback, useRef, useState} from 'react';
 import Webcam from 'react-webcam';
 import {useRouter} from 'next/navigation';
 import {useGlobalStore} from '@/state/store';
+import {Button} from "@/components/ui/button";
 
-interface MobilePageProps {
-    name: string;
-}
-
-const MobilePage: React.FC<MobilePageProps> = ({name}) => {
+const MobilePage = () => {
+    const name = "TOM"
     const webcamRef = useRef<any>(null); // Adjust type as needed
     const [showCamera, setShowCamera] = useState(false);
     const [capturedImage, setCapturedImage] = useState<string | null>(null); // Adjust type as needed
@@ -19,6 +17,11 @@ const MobilePage: React.FC<MobilePageProps> = ({name}) => {
     const handleButtonClick = () => {
         setShowCamera(true);
     };
+
+    const videoConstraints = {
+        facingMode: {exact: "environment"}
+    };
+
 
     const capture = useCallback(() => {
         if (webcamRef.current) {
@@ -38,12 +41,13 @@ const MobilePage: React.FC<MobilePageProps> = ({name}) => {
                             audio={false}
                             ref={webcamRef}
                             screenshotFormat="image/jpeg"
+                            videoConstraints={videoConstraints}
                             className="w-full max-w-md rounded-md overflow-hidden"
                         />
                         <div className="flex justify-between mt-4">
-                            <button onClick={capture} className="px-4 py-2 bg-blue-500 text-white rounded-md">Prend une
+                            <Button onClick={capture} className="px-4 py-2 bg-blue-500 text-white rounded-md">Prend une
                                 photo
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </>
